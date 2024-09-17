@@ -24,4 +24,15 @@ export default class Canva {
     public getHeight(): number {
         return this._canva.height;
     }
+
+    public setBackground(color: string): void {
+        const ctx = this.get2dCtx();
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, this.getWidth(), this.getHeight());
+    }
+
+    public setSize(width: number, height: number): void {
+        this._canva.width = width;
+        this._canva.height = height;
+    }
 }
