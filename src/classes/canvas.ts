@@ -1,16 +1,20 @@
-export default class Canva {
-    private _canva: HTMLCanvasElement;
+export default class Canvas {
+    private _canvas: HTMLCanvasElement;
 
     constructor(id: string) {
         const element = document.getElementById(id);
         if (!(element instanceof HTMLCanvasElement)) {
             throw new Error(`Element with id ${id} is not a canvas element or does not exist.`);
         }
-        this._canva = element;
+        this._canvas = element;
+    }
+
+    public getCanvas(): HTMLCanvasElement {
+        return this._canvas;
     }
 
     public get2dCtx(): CanvasRenderingContext2D {
-        const context = this._canva.getContext('2d');
+        const context = this._canvas.getContext('2d');
         if (!context) {
             throw new Error('Unable to get 2D context from canvas.');
         }
@@ -18,11 +22,11 @@ export default class Canva {
     }
 
     public getWidth(): number {
-        return this._canva.width;
+        return this._canvas.width;
     }
 
     public getHeight(): number {
-        return this._canva.height;
+        return this._canvas.height;
     }
 
     public setBackground(color: string): void {
@@ -32,7 +36,7 @@ export default class Canva {
     }
 
     public setSize(width: number, height: number): void {
-        this._canva.width = width;
-        this._canva.height = height;
+        this._canvas.width = width;
+        this._canvas.height = height;
     }
 }

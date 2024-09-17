@@ -1,17 +1,26 @@
 import './assets/css/index.css';
-import Canva from './classes/canva';
+import Canvas from './classes/canvas';
 import Dot from './classes/dot';
-import { COLORS } from './constant';
+import Racket from './classes/racket';
+import { COLORS, CANVAS } from './constant';
 
 console.log('Hello World!');
 
-const canva = new Canva('breakout');
-canva.setSize(500, 700)
+const canvas = new Canvas('breakout');
+canvas.setSize(CANVAS.width, CANVAS.height)
 
-const ctx = canva.get2dCtx();
+const ctx = canvas.get2dCtx();
+const dot = new Dot(ctx);
 
-canva.setBackground(COLORS.background);
+const racket = new Racket(ctx);
+racket.init(canvas.getCanvas());
 
-// Initialize the dot
-const dot = new Dot(ctx, 50, 50, 10, 10, 5, COLORS.dot);
-dot.draw();
+function startGame() {
+   canvas.setBackground(COLORS.background);
+
+   racket.move()
+   dot.move()
+
+   window.requestAnimationFrame(() => startGame())
+}
+startGame()
