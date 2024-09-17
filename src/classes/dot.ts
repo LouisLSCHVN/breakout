@@ -34,6 +34,14 @@ export default class Dot {
         this.ctx.closePath();
     }
 
+    /**
+     * Move the dot to a new position
+     *
+     * @param {number} x
+     * @param {number} y
+     * @memberof Dot
+     * @returns {void}
+     */
     public move(x: number, y: number): void {
         this.x = x;
         this.y = y;

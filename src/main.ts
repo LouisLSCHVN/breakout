@@ -15,9 +15,3 @@ canva.setBackground(COLORS.background);
 // Initialize the dot
 const dot = new Dot(ctx, 50, 50, 10, 10, 5, COLORS.dot);
 dot.draw();
-
-for (let i = 0; i < 100; i++) {
-    setTimeout(() => {
-        dot.move(i, i);
-    }, 1000);
-}
