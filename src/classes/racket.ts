@@ -6,6 +6,7 @@
 
 import { CANVAS, COLORS, KEYPRESS_SPEED } from "../constant";
 import Canvas from "./canvas";
+import Dot from "./dot";
 
 export default class Racket extends Canvas {
     public width: number = 100;
@@ -53,11 +54,12 @@ export default class Racket extends Canvas {
     }
 
     public draw(): void {
-        this.ctx.beginPath();
-        this.ctx.rect(this.x, this.y, this.width, this.height);
-        this.ctx.fillStyle = this.color;
-        this.ctx.fill();
-        this.ctx.closePath();
+        this._ctx.beginPath();
+        this._ctx.rect(this.x, this.y, this.width, this.height);
+        this._ctx.fillStyle = this.color;
+        this._ctx.fill();
+        this._ctx.closePath();
+        
     }
 
     /**
@@ -108,5 +110,14 @@ export default class Racket extends Canvas {
                 this.keyDirection = 0;
             }
         });
+    }
+
+    public checkDotLimit(dot: Dot): void { 
+        const racketTop = this.y;
+        const ballBottom = dot.y + dot.radius;
+    
+        if (ballBottom > racketTop) {
+            dot.dy = -dot.dy;
+        }
     }
 }
