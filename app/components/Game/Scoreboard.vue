@@ -7,12 +7,7 @@
   </div>
 </template>
 <script setup>
-import {scoreboard} from "~/store/scoreboard";
-const getScoreboard = async () => {
-  const res = await $fetch('/api/score')
-  console.log(res)
-  scoreboard.value = res?.data
-}
+import {getScoreboard, scoreboard} from "~/store/scoreboard";
 
 onMounted(async () => await getScoreboard())
 </script>

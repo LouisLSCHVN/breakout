@@ -8,7 +8,7 @@ function genUsername(username: string = "Username") {
         let index;
         do {
             index = Math.floor(Math.random() * chars.length);
-        } while (!isNaN(parseInt(chars[index])));
+        } while (!isNaN(parseInt(chars[index] as string)));
         chars[index] = String(randomDigit());
     }
     let modifiedUsername = chars.join('');

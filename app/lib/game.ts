@@ -28,6 +28,10 @@ function updateFps() {
 function startGame() {
     if (!process.client) return;
 
+    Score.reset();
+    score.value = 0;
+    death.value = Score.getDeath();
+
     canvas = new Canvas(CANVAS.id);
     canvas.setSize(CANVAS.width, CANVAS.height);
 

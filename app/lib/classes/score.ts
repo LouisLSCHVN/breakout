@@ -61,4 +61,9 @@ export default class Score extends Canvas {
             ctx.fillText(Score.score.toString(), (CANVAS.width / 2), (CANVAS.height / 2));
         }
     }
+
+    static reset() {
+        Score.score = 0;
+        Score.death = 4;
+    }
 }

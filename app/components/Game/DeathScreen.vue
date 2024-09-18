@@ -7,27 +7,23 @@
     <AppButton text="SAVE" @click="saveStats()" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import {startGame, death, score} from "~/lib/game";
 import {username} from "~/store/user";
-import {scoreboard} from "~/store/scoreboard";
+import {saveScoreboard, type ScoreboardData} from "~/store/scoreboard";
 
-const data = {
+const data = ref<ScoreboardData>({
   username: username.value,
   info: {
     createdAt: new Date().getTime(),
     score: score.value,
-    difficulty: 0,
+    difficulty: 1,
   }
-}
+})
 
 const saveStats = async () => {
   console.log("data", data)
-  await $fetch("/api/score", {
-    method: "POST",
-    body: data
-  })
-  scoreboard.value.push(data)
+  await saveScoreboard(data.value)
   startGame()
 }
 </script>
