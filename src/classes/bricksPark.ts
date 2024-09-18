@@ -4,11 +4,14 @@ export default class BricksPark {
 
     public bricks: Brick[] = [];
 
-    constructor(
-        ctx: CanvasRenderingContext2D,
-        bricks: Brick[]
-    ) {
-        this.bricks = bricks;
+    constructor() {}
+
+    public push(brick: Brick): void {
+        this.bricks.push(brick)
+    }
+
+    public get(): Brick[] {
+        return this.bricks
     }
 
 }

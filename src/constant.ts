@@ -12,9 +12,10 @@ const CANVAS = {
 }
 
 const BRICKS = {
-    colors: ['yellow', 'green', 'orange', 'red'],
-    perLine: 14,
-    lines: 4,
+    colors: ['red','red','orange','orange','green','green','yellow','yellow'],
+    perLine: 10,
+    height: 10,
+    marginRatio: .2
 }
 
 const KEYPRESS_SPEED: number = 5

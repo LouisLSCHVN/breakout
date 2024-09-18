@@ -2,6 +2,8 @@ import './assets/css/index.css';
 import Canvas from './classes/canvas';
 import Dot from './classes/dot';
 import Racket from './classes/racket';
+import BricksPark from './classes/bricksPark';
+import Brick from './classes/brick';
 import { COLORS, CANVAS, BRICKS, Color } from './constant';
 
 console.log('Hello World!');
@@ -9,20 +11,26 @@ console.log('Hello World!');
 const canvas = new Canvas(CANVAS.id);
 canvas.setSize(CANVAS.width, CANVAS.height)
 
-const ctx = canvas.get2dCtx();
 const dot = new Dot();
 
 const racket = new Racket();
 racket.init(canvas.getCanvas());
 
 const drawBricks = () => {
-   function createLine(color: Color, index: number) {
+   const brickParks = new BricksPark()
+   function createLines(color: Color, index: number) {
+      const margin = CANVAS.width * BRICKS.marginRatio / (BRICKS.perLine + 1);
+      const width = (CANVAS.width - CANVAS.width * BRICKS.marginRatio) / BRICKS.perLine;
       for (let i = 0; i < BRICKS.perLine; i++) {
-         //new Brick(ctx, color, i * 30, index * 20).draw()
+         const y = index * (BRICKS.height + margin) + margin;
+         const x = margin + i * (width + margin);
+         const brick = new Brick(x, y, width, BRICKS.height, color)
+         brick.draw();
+         brickParks.push(brick)
       }
    }
 
-   BRICKS.colors.forEach((color, index) => createLine(color, index))
+   BRICKS.colors.forEach((color, index) => createLines(color, index))
 }
 
 function startGame() {
@@ -31,6 +39,7 @@ function startGame() {
    drawBricks()
    racket.move()
    dot.move()
+   racket.checkDotLimit(dot)
 
    window.requestAnimationFrame(() => startGame())
 }
