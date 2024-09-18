@@ -3,6 +3,7 @@
   <main id="breakout__main">
     <GameInfo />
     <BreakoutCanvas />
+    <GameScoreboard />
   </main>
 </template>
 <script setup>

@@ -44,8 +44,9 @@ function startGame() {
 
 function gameLoop() {
     canvas.setBackground(COLORS.background);
-
     updateFps()
+
+    if(!death.value) return
 
     //Score.showScore(ctx);
     racket.move();

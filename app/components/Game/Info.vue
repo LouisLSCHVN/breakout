@@ -1,6 +1,8 @@
 <template>
   <div>
+    <GameUsername />
     <AppPeople />
+
 
     <client-only>
       <GameStats />

@@ -16,5 +16,6 @@ button {
   color: var(--color-text);
   background: var(--color-primary);
   padding: 10px;
+  cursor: help;
 }
 </style>

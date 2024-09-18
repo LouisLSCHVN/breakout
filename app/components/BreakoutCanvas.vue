@@ -7,5 +7,6 @@ import {CANVAS} from "~/lib/constant";
 <style>
 canvas {
     border: 2px solid var(--color-secondary);
+    cursor: crosshair;
 }
 </style>

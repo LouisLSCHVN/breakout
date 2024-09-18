@@ -4,10 +4,32 @@
       GAME OVER
     </h1>
     <AppButton text="RESTART" @click="startGame()" />
+    <AppButton text="SAVE" @click="saveStats()" />
   </div>
 </template>
 <script setup>
-import {startGame, death} from "~/lib/game";
+import {startGame, death, score} from "~/lib/game";
+import {username} from "~/store/user";
+import {scoreboard} from "~/store/scoreboard";
+
+const data = {
+  username: username.value,
+  info: {
+    createdAt: new Date().getTime(),
+    score: score.value,
+    difficulty: 0,
+  }
+}
+
+const saveStats = async () => {
+  console.log("data", data)
+  await $fetch("/api/score", {
+    method: "POST",
+    body: data
+  })
+  scoreboard.value.push(data)
+  startGame()
+}
 </script>
 <style scoped>
 div {
