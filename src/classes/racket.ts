@@ -59,7 +59,7 @@ export default class Racket extends Canvas {
         this._ctx.fillStyle = this.color;
         this._ctx.fill();
         this._ctx.closePath();
-        
+
     }
 
     /**
@@ -112,11 +112,23 @@ export default class Racket extends Canvas {
         });
     }
 
-    public checkDotLimit(dot: Dot): void { 
+    public checkDotLimit(dot: Dot): void {
+        const racketLeft = this.x;
+        const racketRight = this.x + this.width;
         const racketTop = this.y;
+        const racketBottom = this.y + this.height;
+
+        const ballLeft = dot.x - dot.radius;
+        const ballRight = dot.x + dot.radius;
+        const ballTop = dot.y - dot.radius;
         const ballBottom = dot.y + dot.radius;
-    
-        if (ballBottom > racketTop) {
+
+        if (
+            ballRight > racketLeft &&
+            ballLeft < racketRight &&
+            ballBottom > racketTop &&
+            ballTop < racketBottom
+        ) {
             dot.dy = -dot.dy;
         }
     }
