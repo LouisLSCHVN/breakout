@@ -1,3 +1,4 @@
+import Score from "./classes/score";
 import { startGame } from "./game";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -13,4 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
            this.disabled = true;
        }
    });
+   const death = document.getElementById("death") as HTMLButtonElement;
+   death.textContent = Score.getDeath().toString();
 })

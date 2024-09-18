@@ -59,7 +59,6 @@ export default class Racket extends Canvas {
         this._ctx.fillStyle = this.color;
         this._ctx.fill();
         this._ctx.closePath();
-
     }
 
     /**

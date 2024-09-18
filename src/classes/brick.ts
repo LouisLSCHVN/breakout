@@ -1,5 +1,6 @@
 import { CANVAS, COLORS } from "../constant";
 import Canvas from "./canvas";
+import Dot from "./dot";
 
 export default class Brick extends Canvas {
     public width: number = 30;
@@ -28,6 +29,29 @@ export default class Brick extends Canvas {
         this._ctx.rect(this.x, this.y, this.width, this.height);
         this._ctx.fillStyle = this.color;
         this._ctx.fill();
+    }
+
+    public checkDotLimit(dot: Dot): boolean {
+        const brickLeft = this.x;
+        const brickRight = this.x + this.width;
+        const brickTop = this.y;
+        const brickBottom = this.y + this.height;
+
+        const ballLeft = dot.x - dot.radius;
+        const ballRight = dot.x + dot.radius;
+        const ballTop = dot.y - dot.radius;
+        const ballBottom = dot.y + dot.radius;
+
+        if (
+            ballRight > brickLeft &&
+            ballLeft < brickRight &&
+            ballBottom > brickTop &&
+            ballTop < brickBottom
+        ) {
+            dot.dy = -dot.dy; // Inverser la direction de la balle
+            return true; // Collision détectée
+        }
+        return false; // Pas de collision
     }
 
 }

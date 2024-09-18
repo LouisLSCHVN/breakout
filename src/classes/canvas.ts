@@ -1,3 +1,5 @@
+import { CANVAS } from "../constant";
+
 export default class Canvas {
     protected _canvas: HTMLCanvasElement;
     protected _ctx: CanvasRenderingContext2D;

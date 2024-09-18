@@ -13,6 +13,7 @@
 
 import { CANVAS, COLORS } from "../constant";
 import Canvas from "./canvas";
+import Score from "./score";
 
 export default class Dot extends Canvas {
 
@@ -61,6 +62,11 @@ export default class Dot extends Canvas {
 
     public checkCollision(): void {
         this.checkBorderLimit()
+        if (this.checkBorderDeath()) {
+            this.x = Math.random() * CANVAS.width;
+            this.y = CANVAS.width / 2;
+            Score.decrementDeath();
+        }
     }
 
     public checkBorderLimit(): void {
@@ -76,5 +82,10 @@ export default class Dot extends Canvas {
         if (this.y < 0 || this.y > borderLimit.y) {
             this.dy = -this.dy;
         }
+    }
+
+    public checkBorderDeath(): boolean {
+        // faut faire 10% de height canva
+        return this.y >= (this._ctx.canvas.height * 0.99);
     }
 }
