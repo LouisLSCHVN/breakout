@@ -6,10 +6,19 @@ const COLORS = {
     text: "rgb(0,0,255)"
 };
 
-const CANVAS = {
-    width: 500,
-    height: 700,
-    id: "breakout"
+let CANVAS = {}
+if(window.innerWidth > 600) {
+    CANVAS = {
+        width: 500,
+        height: 700,
+        id: "breakout"
+    }
+} else {
+    CANVAS = {
+        width: 500 /2,
+        height: 700 /2,
+        id: "breakout"
+    }
 }
 
 const BRICKS = {
@@ -20,9 +29,10 @@ const BRICKS = {
 }
 
 const DOT = {
-    dx: 1.5,
-    dy: 1.5,
-    speed: [3, 5, 7]
+    dx: 3,
+    dy: 3,
+    baseSpeed: [5, 7, 9],
+    speedMultiplier: 1.5
 }
 
 const KEYPRESS_SPEED: number = 5

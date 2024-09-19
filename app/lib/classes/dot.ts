@@ -26,6 +26,9 @@ export default class Dot extends Canvas {
     public color: string = COLORS.dot;
     public dx: number = DOT.dx;
     public dy: number = DOT.dy;
+    public currentSpeedLevel: number = 0;
+    private currentLevel: number = 0;
+
 
     constructor(
         radius?: number,
@@ -92,12 +95,10 @@ export default class Dot extends Canvas {
         }
     }
 
-    private resetPosition(): void {
+    resetPosition(): void {
         this.x = Math.random() * CANVAS.width;
         this.y = CANVAS.height / 2; // Correction: Utiliser CANVAS.height
         // Réinitialiser la vitesse si nécessaire
-        this.dx = 3;
-        this.dy = 3;
     }
 
     public checkBorderLimit(): void {
@@ -118,8 +119,26 @@ export default class Dot extends Canvas {
         // faut faire 10% de height canva
         return this.y >= (this._ctx.canvas.height * 0.99);
     }
-     public resetSpeed() {
-        this.dx = DOT.dx
-        this.dy = DOT.dy 
-     }
+
+    public resetSpeed() {
+        this.dx = DOT.dx;
+        this.dy = DOT.dy;
+        this.currentSpeedLevel = -1;
+    }
+
+    public updateSpeed(newSpeedLevel: number) {
+        if (newSpeedLevel > this.currentSpeedLevel) {
+            const baseSpeed = DOT.baseSpeed[newSpeedLevel] || DOT.baseSpeed[DOT.baseSpeed.length - 1];
+            const levelMultiplier = Math.pow(DOT.speedMultiplier, this.currentLevel);
+            const newSpeed = baseSpeed * levelMultiplier;
+
+            this.dx = Math.sign(this.dx) * newSpeed;
+            this.dy = Math.sign(this.dy) * newSpeed;
+            this.currentSpeedLevel = newSpeedLevel;
+        }
+    }
+
+    public setLevel(level: number) {
+        this.currentLevel = level;
+    }
 }

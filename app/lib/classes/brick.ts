@@ -64,30 +64,21 @@ export default class Brick extends Canvas {
         if (this.checkDotLimit(dot)) {
             switch (this.color) {
                 case 'green':
-                    if (!Brick.firstGreenHit && Brick.maxSpeedLevel <= 0) {// Augmente la vitesse pour la première brique verte
-                        dot.dx  = DOT.speed[0]!;
-                        dot.dy = DOT.speed[0]!;
-                        dot.dy = -dot.dy;
+                    if (!Brick.firstGreenHit) {
+                        dot.updateSpeed(0);
                         Brick.firstGreenHit = true;
-                        Brick.maxSpeedLevel = 1; // Met à jour le niveau max
                     }
                     break;
                 case 'orange':
-                    if (!Brick.firstOrangeHit && Brick.maxSpeedLevel <= 1) {// Augmente la vitesse pour la première brique orange
-                        dot.dx = DOT.speed[1]!;
-                        dot.dy = DOT.speed[1]!;
-                        dot.dy = -dot.dy;
+                    if (!Brick.firstOrangeHit) {
+                        dot.updateSpeed(1);
                         Brick.firstOrangeHit = true;
-                        Brick.maxSpeedLevel = 2; // Met à jour le niveau max
                     }
                     break;
                 case 'red':
-                    if (!Brick.firstRedHit && Brick.maxSpeedLevel <= 2) {// Augmente la vitesse pour la première brique rouge
-                        dot.dx = DOT.speed[2]!;
-                        dot.dy = DOT.speed[2]!;
-                        dot.dy = -dot.dy;
+                    if (!Brick.firstRedHit) {
+                        dot.updateSpeed(2);
                         Brick.firstRedHit = true;
-                        Brick.maxSpeedLevel = 3; // Met à jour le niveau max
                     }
                     break;
             }
@@ -99,6 +90,5 @@ export default class Brick extends Canvas {
         Brick.firstGreenHit = false;
         Brick.firstOrangeHit = false;
         Brick.firstRedHit = false;
-        Brick.maxSpeedLevel = 0; // Réinitialise le niveau de vitesse à 0
     }
 }

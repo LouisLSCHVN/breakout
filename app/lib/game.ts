@@ -6,6 +6,7 @@ import BricksPark from './classes/bricksPark';
 import Score from './classes/score';
 import { COLORS, CANVAS } from './constant';
 import { ref } from 'vue';
+import Brick from "~/lib/classes/brick";
 
 let canvas: Canvas;
 let dot: Dot;
@@ -26,8 +27,12 @@ function updateFps() {
     fps.value = Math.round(1000 / deltaTime);
 }
 
+let level: number
+
 function startGame() {
     if (!process.client) return;
+
+    level = 0
 
     Score.reset();
     score.value = 0;
@@ -37,6 +42,7 @@ function startGame() {
     canvas.setSize(CANVAS.width, CANVAS.height);
 
     dot = new Dot();
+    dot.setLevel(level);
 
     racket = new Racket();
     racket.init(canvas.getCanvas());
@@ -75,7 +81,10 @@ function gameLoop() {
     });
 
     if(brickParks.bricks.length === 0 && dot.y > (CANVAS.height / 2)) {
-        brickParks.init()
+        level++;
+        brickParks.init();
+        dot.setLevel(level);
+        Brick.resetFirstHit();
     }
 
     window.requestAnimationFrame(gameLoop);
