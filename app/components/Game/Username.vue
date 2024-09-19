@@ -1,6 +1,6 @@
 <template>
   <div class="input-wrapper">
-    <small>username __ change me</small>
+    <small>change me</small>
     <input id="username" type="text" v-model="username" :placeholder="username" />
   </div>
 </template>
@@ -11,6 +11,7 @@ import { username } from '~/store/user';
 <style scoped>
 .input-wrapper {
   display: flex;
+  gap: 20px;
   flex-direction: column;
 }
 input {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="game__info">
     <h1>
       Breakout
     </h1>
@@ -14,12 +14,12 @@
 import { startGame } from '~/lib/game';
 </script>
 <style scoped>
-div {
+div.game__info {
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 h1 {
   width: 100%;
