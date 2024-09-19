@@ -66,6 +66,7 @@ export default class Brick extends Canvas {
                     if (!Brick.firstGreenHit) {// Augmente la vitesse pour la première brique verte
                         dot.dx  = DOT.speed[0]!;
                         dot.dy = DOT.speed[0]!;
+                        dot.dy = -dot.dy;
                         Brick.firstGreenHit = true;
                     }
                     break;
@@ -73,6 +74,7 @@ export default class Brick extends Canvas {
                     if (!Brick.firstOrangeHit) {// Augmente la vitesse pour la première brique orange
                         dot.dx = DOT.speed[1]!;
                         dot.dy = DOT.speed[1]!;
+                        dot.dy = -dot.dy;
                         Brick.firstOrangeHit = true;
                     }
                     break;
@@ -80,6 +82,7 @@ export default class Brick extends Canvas {
                     if (!Brick.firstRedHit) {// Augmente la vitesse pour la première brique rouge
                         dot.dx = DOT.speed[2]!;
                         dot.dy = DOT.speed[2]!;
+                        dot.dy = -dot.dy;
                         Brick.firstRedHit = true;
                     }
                     break;

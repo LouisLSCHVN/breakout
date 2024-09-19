@@ -106,18 +106,20 @@ export default class Racket extends Canvas {
             // Calculer l'angle de rebond en radians
             const bounceAngle = clampedRelativeIntersectX * (maxBounceAngle * Math.PI / 180);
 
-            // Calculer la vitesse actuelle de la balle
+            // Conserver la vitesse actuelle de la balle
             const speed = Math.sqrt(dot.dx * dot.dx + dot.dy * dot.dy);
 
-            // Définir les nouvelles composantes de vitesse
-            dot.dx = speed * Math.sin(bounceAngle);
-            dot.dy = -speed * Math.cos(bounceAngle); // Toujours vers le haut
+            // Calculer les nouvelles composantes directionnelles
+            const directionX = Math.sin(bounceAngle);
+            const directionY = -Math.cos(bounceAngle); // Toujours vers le haut
 
-            // Normaliser la vitesse pour maintenir une vitesse constante
-            dot.normalizeVelocity();
+            // Appliquer la direction tout en conservant la vitesse constante
+            dot.dx = speed * directionX;
+            dot.dy = speed * directionY;
 
             // Positionner la balle juste au-dessus de la raquette pour éviter collision multiple
             dot.y = this.y - dot.radius;
+
         }
     }
 }
