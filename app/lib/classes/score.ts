@@ -1,4 +1,4 @@
-import { CANVAS, COLORS } from "../constant";
+import { COLORS } from "../constant";
 import Canvas from "./canvas";
 
 export default class Score extends Canvas {
@@ -7,7 +7,7 @@ export default class Score extends Canvas {
     private static death: number = 4;
 
     constructor() {
-        super(CANVAS.id);
+        super("breakout");
     }
 
     static getScore() {
@@ -47,18 +47,6 @@ export default class Score extends Canvas {
         const data = localStorage.getItem('scores');
         if (data) {
             return JSON.parse(data);
-        }
-    }
-
-    public static showScore(ctx: CanvasRenderingContext2D) {
-
-
-        if (ctx) {  // Vérifie que le contexte et le canvas sont bien définis
-            ctx.fillStyle = COLORS.text;
-            ctx.font = "bold 32px Times New Roman";
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(Score.score.toString(), (CANVAS.width / 2), (CANVAS.height / 2));
         }
     }
 

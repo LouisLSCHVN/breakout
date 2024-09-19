@@ -26,6 +26,7 @@ import './assets/css/index.css'
 #breakout__main > :nth-child(3) {
   max-height: 700px;
   padding: 0 15px;
+  overflow-x: hidden;
 }
 
 @media (max-width: 1400px) {

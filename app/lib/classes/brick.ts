@@ -23,7 +23,7 @@ export default class Brick extends Canvas {
         height?: number,
         color?: string,
     ) {
-        super(CANVAS.id);
+        super("breakout");
         if(x) this.x = x;
         if(y) this.y = y;
         if(width) this.width = width;

@@ -11,7 +11,7 @@
  * - Ensuite, par défault, la balle va apparaître toujours sur le même y mais simplement changer de x (aléatoire)
  */
 // Dot.ts
-import { CANVAS, COLORS, DOT } from "../constant";
+import { COLORS, DOT } from "../constant";
 import Brick from "./brick";
 import Canvas from "./canvas";
 import Score from "./score";
@@ -20,8 +20,8 @@ import Racket from "./racket"; // Assurez-vous que le chemin est correct
 
 export default class Dot extends Canvas {
 
-    public x: number = Math.random() * CANVAS.width;
-    public y: number = CANVAS.height / 2; // Correction: Utiliser CANVAS.height
+    public x: number = Math.random() * this._canvas.width;
+    public y: number = this._canvas.height / 2; // Correction: Utiliser CANVAS.height
     public radius: number = 5;
     public color: string = COLORS.dot;
     public dx: number = DOT.dx;
@@ -36,7 +36,7 @@ export default class Dot extends Canvas {
         x?: number,
         y?: number,
     ) {
-        super(CANVAS.id);
+        super("breakout");
         if (radius) this.radius = radius;
         if (color) this.color = color;
         if (x) this.x = x;
@@ -96,8 +96,8 @@ export default class Dot extends Canvas {
     }
 
     resetPosition(): void {
-        this.x = Math.random() * CANVAS.width;
-        this.y = CANVAS.height / 2; // Correction: Utiliser CANVAS.height
+        this.x = Math.random() * this._canvas.width;
+        this.y = this._canvas.height / 2; // Correction: Utiliser CANVAS.height
         // Réinitialiser la vitesse si nécessaire
     }
 

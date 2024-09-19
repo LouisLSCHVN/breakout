@@ -4,7 +4,7 @@ import Dot from './classes/dot';
 import Racket from './classes/racket';
 import BricksPark from './classes/bricksPark';
 import Score from './classes/score';
-import { COLORS, CANVAS } from './constant';
+import { COLORS } from './constant';
 import { ref } from 'vue';
 import Brick from "~/lib/classes/brick";
 
@@ -38,8 +38,8 @@ function startGame() {
     score.value = 0;
     death.value = Score.getDeath();
 
-    canvas = new Canvas(CANVAS.id);
-    canvas.setSize(CANVAS.width, CANVAS.height);
+    canvas = new Canvas("breakout");
+    canvas.setSize(canvas.getCanvas().width, canvas.getCanvas().height);
 
     dot = new Dot();
     dot.setLevel(level);
@@ -80,7 +80,7 @@ function gameLoop() {
         return true;
     });
 
-    if(brickParks.bricks.length === 0 && dot.y > (CANVAS.height / 2)) {
+    if(brickParks.bricks.length === 0 && dot.y > (canvas.getCanvas().height / 2)) {
         level++;
         brickParks.init();
         dot.setLevel(level);

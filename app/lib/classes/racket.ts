@@ -6,8 +6,8 @@ import Dot from "./dot";
 export default class Racket extends Canvas {
     public width: number = 100;
     public height: number = 10;
-    public x: number = (CANVAS.width / 2) - (this.width / 2);
-    private y: number = CANVAS.height - (10 * CANVAS.height / 100);
+    public x: number = (this._canvas.width / 2) - (this.width / 2);
+    private y: number = this._canvas.height - (10 * this._canvas.height / 100);
     public color: string = COLORS.racket;
 
     private keyDirection: number = 0; // -1 pour gauche, 0 pour arrêt, 1 pour droite
@@ -19,7 +19,7 @@ export default class Racket extends Canvas {
         height?: number,
         color?: string,
     ) {
-        super(CANVAS.id);
+        super("breakout");
         if (x) this.x = x;
         if (y) this.y = y;
         if (width) this.width = width;
@@ -28,6 +28,7 @@ export default class Racket extends Canvas {
     }
 
     public init(canvas: HTMLCanvasElement): void {
+        this.setTouchListener(canvas);
         this.setMouseListener(canvas)
         this.setKeyListeners()
         this.draw()
@@ -48,7 +49,7 @@ export default class Racket extends Canvas {
     }
 
     public getMaxX(): number {
-        return Math.max(0, Math.min(this.x, CANVAS.width - this.width));
+        return Math.max(0, Math.min(this.x, this._canvas.width - this.width));
     }
 
     private setMouseListener(canvas: HTMLCanvasElement): void {
@@ -76,6 +77,31 @@ export default class Racket extends Canvas {
                 this.keyDirection = 0;
             }
         });
+    }
+
+    private setTouchListener(canvas: HTMLCanvasElement): void {
+        canvas.addEventListener('touchstart', (e) => {
+            this.isTouch = true;
+            this.handleTouch(e, canvas);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            this.handleTouch(e, canvas);
+        });
+
+        canvas.addEventListener('touchend', () => {
+        });
+    }
+
+    private handleTouch(e: TouchEvent, canvas: HTMLCanvasElement): void {
+        e.preventDefault(); // Empêcher le défilement de la page
+        if (e.touches.length > 0) {
+            const touch = e.touches[0];
+            if(!touch) return
+            const rect = canvas.getBoundingClientRect();
+            this.x = touch.clientX - rect.left - this.width / 2;
+            this.x = this.getMaxX();
+        }
     }
 
     public checkDotLimit(dot: Dot): void {
