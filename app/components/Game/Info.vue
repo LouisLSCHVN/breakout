@@ -9,7 +9,7 @@
 
     <client-only>
       <GameStats />
-      <AppButton text="START" @click="startGame()" />
+      <AppButton class="start" text="START" @click="startGame()" />
     </client-only>
   </div>
 </template>

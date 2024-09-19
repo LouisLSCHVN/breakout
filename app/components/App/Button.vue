@@ -23,4 +23,11 @@ button {
 .active {
   background: var(--color-secondary);
 }
+
+.start{
+  border-radius: 12px;
+  border-color: var(--red);
+  background-color: var(--orange);
+  color : var(--white);
+}
 </style>

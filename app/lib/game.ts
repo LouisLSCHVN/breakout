@@ -62,6 +62,7 @@ function gameLoop() {
         if (brick.checkDotLimit(dot)) {
             Score.incrementScore();
             score.value = Score.getScore()
+            brick.speedBall(dot)
             return false;
         }
         return true;

@@ -9,6 +9,11 @@ export default class Brick extends Canvas {
     public x: number = 0;
     private y: number = 0;
 
+    private static firstGreenHit: boolean = false;
+    private static firstOrangeHit: boolean = false;
+    private static firstRedHit: boolean = false;
+
+
     constructor(
         x?: number,
         y?: number,
@@ -48,10 +53,38 @@ export default class Brick extends Canvas {
             ballBottom > brickTop &&
             ballTop < brickBottom
         ) {
-            dot.dy = -dot.dy; // Inverser la direction de la balle
             return true; // Collision détectée
         }
         return false; // Pas de collision
     }
 
+    // Code de GABIN
+    public speedBall(dot: Dot): void {
+        if (this.checkDotLimit(dot)) {
+            switch (this.color) {
+                case 'green':
+                    if (!Brick.firstGreenHit) {// Augmente la vitesse pour la première brique verte
+                        dot.dx *= 1.25;
+                        dot.dy *= 1.25;
+                        Brick.firstGreenHit = true;
+                    }
+                    break;
+                case 'orange':
+                    if (!Brick.firstOrangeHit) {// Augmente la vitesse pour la première brique orange
+                        dot.dx *= 1.25;
+                        dot.dy *= 1.25;
+                        Brick.firstOrangeHit = true;
+                    }
+                    break;
+                case 'red':
+                    if (!Brick.firstRedHit) {// Augmente la vitesse pour la première brique rouge
+                        dot.dx *= 1.25;
+                        dot.dy *= 1.25;
+                        Brick.firstRedHit = true;
+                    }
+                    break;
+            }
+            dot.dy = -dot.dy; // Inverser la direction de la balle
+        }
+    }
 }
