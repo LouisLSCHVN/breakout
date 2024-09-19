@@ -10,16 +10,17 @@
  * - Déjà pour ajouter une balle c'est new Dot(ctx, x, y, radius, color)
  * - Ensuite, par défault, la balle va apparaître toujours sur le même y mais simplement changer de x (aléatoire)
  */
-
+// Dot.ts
 import { CANVAS, COLORS } from "../constant";
 import Canvas from "./canvas";
 import Score from "./score";
 import { death } from "~/lib/game";
+import Racket from "./racket"; // Assurez-vous que le chemin est correct
 
 export default class Dot extends Canvas {
 
     public x: number = Math.random() * CANVAS.width;
-    public y: number = CANVAS.width / 2;
+    public y: number = CANVAS.height / 2; // Correction: Utiliser CANVAS.height
     public radius: number = 5;
     public color: string = COLORS.dot;
     public dx: number = 3;
@@ -32,10 +33,10 @@ export default class Dot extends Canvas {
         y?: number,
     ) {
         super(CANVAS.id);
-        if(radius) this.radius = radius;
-        if(color) this.color = color;
-        if(x) this.x = x;
-        if(y) this.y = y;
+        if (radius) this.radius = radius;
+        if (color) this.color = color;
+        if (x) this.x = x;
+        if (y) this.y = y;
     }
 
     public draw(): void {
@@ -47,48 +48,71 @@ export default class Dot extends Canvas {
     }
 
     /**
-     * Check for collision
+     * Normalise la vitesse pour maintenir une vitesse constante
+     * @memberof Dot
+     */
+    public normalizeVelocity(): void {
+        const speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+        const desiredSpeed = 5; // Ajustez selon vos préférences
+
+        if (speed !== 0) {
+            this.dx = (this.dx / speed) * desiredSpeed;
+            this.dy = (this.dy / speed) * desiredSpeed;
+        }
+    }
+
+    /**
+     * Check for collision with borders and racket
      * Move the dot
      * Draw the dot
      *
+     * @param {Racket} racket
      * @memberof Dot
      * @returns {void}
      */
-    public move(): void {
-        this.checkCollision();
+    public move(racket: Racket): void {
+        this.checkCollision(racket);
         this.x += this.dx;
         this.y += this.dy;
         this.draw();
     }
 
-    public checkCollision(): void {
-        this.checkBorderLimit()
+    public checkCollision(racket: Racket): void {
+        // Utiliser la méthode de la raquette pour vérifier la collision
+        racket.checkDotLimit(this);
+        this.checkBorderLimit();
         if (this.checkBorderDeath()) {
-            this.x = Math.random() * CANVAS.width;
-            this.y = CANVAS.width / 2;
+            this.resetPosition();
             Score.decrementDeath();
-            death.value = Score.getDeath()
-            console.log('number of death', Score.getDeath())
+            death.value = Score.getDeath();
+            console.log('number of deaths:', Score.getDeath());
         }
     }
 
+    private resetPosition(): void {
+        this.x = Math.random() * CANVAS.width;
+        this.y = CANVAS.height / 2; // Correction: Utiliser CANVAS.height
+        // Réinitialiser la vitesse si nécessaire
+        this.dx = 3;
+        this.dy = 3;
+    }
+
     public checkBorderLimit(): void {
-        // si x - le radius de la balle est supérieur a canvas width alors, y = -y
-        // si y - le radius de la balle est supérieur a canvas height alors, y = -y
         const borderLimit = {
             x: this._ctx.canvas.width - this.radius,
             y: this._ctx.canvas.height - this.radius
         };
-        if (this.x < 0 || this.x > borderLimit.x) {
+        if (this.x < this.radius || this.x > borderLimit.x) {
             this.dx = -this.dx;
         }
-        if (this.y < 0 || this.y > borderLimit.y) {
+        if (this.y < this.radius) {
             this.dy = -this.dy;
         }
+        // Supprimer l'inversion de dy pour y > borderLimit.y pour éviter le conflit avec la raquette
     }
 
     public checkBorderDeath(): boolean {
-        // faut faire 10% de height canva
-        return this.y >= (this._ctx.canvas.height * 0.99);
+        // Fait mourir le joueur si la balle touche le bas du canvas
+        return this.y >= (this._ctx.canvas.height - this.radius);
     }
 }

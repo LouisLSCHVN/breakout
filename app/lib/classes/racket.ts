@@ -1,9 +1,4 @@
-/**
- * Alors, pour la racket, on initialise x en divisant la largeur de la page par 2 puis en enlevant la moitié de la largeur de la racket, pour vraiment la centrer au début
- * Ensuite Y, c'est simplement 10% du bottom, si vous voulez ajuster, changer simplement le 10 en ce que vous voulez.
- *
- */
-
+// Racket.ts
 import { CANVAS, COLORS, KEYPRESS_SPEED } from "../constant";
 import Canvas from "./canvas";
 import Dot from "./dot";
@@ -12,16 +7,9 @@ export default class Racket extends Canvas {
     public width: number = 100;
     public height: number = 10;
     public x: number = (CANVAS.width / 2) - (this.width / 2);
-    private y: number = CANVAS.height - 10 * CANVAS.height / 100;
+    private y: number = CANVAS.height - (10 * CANVAS.height / 100);
     public color: string = COLORS.racket;
 
-    /**
-     *  C'est un peu de l'optimisation pour les flèches, sinon l'UX est terrible
-     *  Mais en gros
-     * @private
-     * @type {(boolean | null)}
-     * @memberof Racket
-     */
     private keyDirection: number = 0; // -1 pour gauche, 0 pour arrêt, 1 pour droite
 
     constructor(
@@ -32,21 +20,13 @@ export default class Racket extends Canvas {
         color?: string,
     ) {
         super(CANVAS.id);
-        if(x) this.x = x;
-        if(y) this.y = y;
-        if(width) this.width = width;
-        if(height) this.height = height;
-        if(color) this.color = color;
+        if (x) this.x = x;
+        if (y) this.y = y;
+        if (width) this.width = width;
+        if (height) this.height = height;
+        if (color) this.color = color;
     }
 
-    /**
-     * Initialisation de la racket
-     * On ajoute les listeners pour les flèches et la souris
-     * On dessine la racket
-     *
-     * @param {HTMLCanvasElement} canvas
-     * @memberof Racket
-     */
     public init(canvas: HTMLCanvasElement): void {
         this.setMouseListener(canvas)
         this.setKeyListeners()
@@ -61,25 +41,12 @@ export default class Racket extends Canvas {
         this._ctx.closePath();
     }
 
-    /**
-     * On bouge la racket en fonction de la direction des flèches
-     * On vérifie que la racket ne sorte pas de l'écran
-     * On dessine la racket
-     *
-     * @memberof Racket
-     */
     public move(): void {
         this.x += KEYPRESS_SPEED * this.keyDirection;
         this.x = this.getMaxX()
         this.draw();
     }
 
-    /**
-     * Fait en sorte que la racket ne dépasse pas du cadre
-     *
-     * @return {*}  {number}
-     * @memberof Racket
-     */
     public getMaxX(): number {
         return Math.max(0, Math.min(this.x, CANVAS.width - this.width));
     }
@@ -95,17 +62,17 @@ export default class Racket extends Canvas {
 
     private setKeyListeners(): void {
         window.addEventListener('keydown', (e) => {
-            if(e.key === 'ArrowRight') {
+            if (e.key === 'ArrowRight') {
                 this.keyDirection = 1;
-            } else if(e.key === 'ArrowLeft') {
+            } else if (e.key === 'ArrowLeft') {
                 this.keyDirection = -1;
             }
         });
 
         window.addEventListener('keyup', (e) => {
-            if(e.key === 'ArrowRight' && this.keyDirection === 1) {
+            if (e.key === 'ArrowRight' && this.keyDirection === 1) {
                 this.keyDirection = 0;
-            } else if(e.key === 'ArrowLeft' && this.keyDirection === -1) {
+            } else if (e.key === 'ArrowLeft' && this.keyDirection === -1) {
                 this.keyDirection = 0;
             }
         });
@@ -114,6 +81,7 @@ export default class Racket extends Canvas {
     public checkDotLimit(dot: Dot): void {
         const racketLeft = this.x;
         const racketRight = this.x + this.width;
+        const racketCenter = this.x + this.width / 2;
         const racketTop = this.y;
         const racketBottom = this.y + this.height;
 
@@ -128,7 +96,28 @@ export default class Racket extends Canvas {
             ballBottom > racketTop &&
             ballTop < racketBottom
         ) {
-            dot.dy = -dot.dy;
+            // Calculer la position relative du contact (-1 à 1)
+            const relativeIntersectX = (dot.x - racketCenter) / (this.width / 2);
+            const maxBounceAngle = 60; // en degrés
+
+            // Limiter la valeur de relativeIntersectX entre -1 et 1
+            const clampedRelativeIntersectX = Math.max(-1, Math.min(relativeIntersectX, 1));
+
+            // Calculer l'angle de rebond en radians
+            const bounceAngle = clampedRelativeIntersectX * (maxBounceAngle * Math.PI / 180);
+
+            // Calculer la vitesse actuelle de la balle
+            const speed = Math.sqrt(dot.dx * dot.dx + dot.dy * dot.dy);
+
+            // Définir les nouvelles composantes de vitesse
+            dot.dx = speed * Math.sin(bounceAngle);
+            dot.dy = -speed * Math.cos(bounceAngle); // Toujours vers le haut
+
+            // Normaliser la vitesse pour maintenir une vitesse constante
+            dot.normalizeVelocity();
+
+            // Positionner la balle juste au-dessus de la raquette pour éviter collision multiple
+            dot.y = this.y - dot.radius;
         }
     }
 }

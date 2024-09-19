@@ -5,6 +5,7 @@ import Racket from './classes/racket';
 import BricksPark from './classes/bricksPark';
 import Score from './classes/score';
 import { COLORS, CANVAS } from './constant';
+import { ref } from 'vue';
 
 let canvas: Canvas;
 let dot: Dot;
@@ -16,6 +17,7 @@ export const score = ref(0)
 export const death = ref(Score.getDeath())
 export const fps = ref(0)
 let lastFrameTime = performance.now();
+
 function updateFps() {
     const now = performance.now();
     const deltaTime = now - lastFrameTime;
@@ -23,7 +25,6 @@ function updateFps() {
 
     fps.value = Math.round(1000 / deltaTime);
 }
-
 
 function startGame() {
     if (!process.client) return;
@@ -47,17 +48,22 @@ function startGame() {
 }
 
 function gameLoop() {
+    // Effacer le canvas et redessiner le fond
     canvas.setBackground(COLORS.background);
     updateFps()
 
     if(!death.value) return
 
-    //Score.showScore(ctx);
+    // Déplacer et dessiner la raquette
     racket.move();
-    dot.move();
-    racket.checkDotLimit(dot);
+
+    // Déplacer et dessiner la balle avec gestion des collisions
+    dot.move(racket);
+
+    // Dessiner les briques
     brickParks.draw();
 
+    // Gérer les collisions avec les briques
     brickParks.bricks = brickParks.bricks.filter((brick) => {
         if (brick.checkDotLimit(dot)) {
             Score.incrementScore();
