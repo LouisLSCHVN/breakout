@@ -25,6 +25,7 @@ import './assets/css/index.css'
 
 #breakout__main > :nth-child(1),
 #breakout__main > :nth-child(3) {
+  max-height: 700px;
   padding: 0 15px;
 }
 </style>

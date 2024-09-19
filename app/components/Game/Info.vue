@@ -6,12 +6,12 @@
     <GameUsername />
     <client-only>
       <GameStats />
-      <AppButton text="START" @click="startGame()" :disabled="death === 0" />
+      <AppButton text="START" @click="startGame()" />
     </client-only>
   </div>
 </template>
 <script lang="ts" setup>
-import { startGame, death } from '~/lib/game';
+import { startGame } from '~/lib/game';
 </script>
 <style scoped>
 div.game__info {
