@@ -1,6 +1,9 @@
+import { username } from "./user";
+
 export const scoreboard = ref<ScoreboardData[]>([]);
 
 export const saveScoreboard = async (data: ScoreboardData): Promise<void> => {
+    if(username.value === '') return;
     await $fetch("/api/score", {
         method: "POST",
         body: data

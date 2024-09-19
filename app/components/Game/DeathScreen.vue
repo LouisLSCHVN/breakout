@@ -16,7 +16,6 @@
 import { startGame, death, score } from "~/lib/game";
 import { username } from "~/store/user";
 import { saveScoreboard, type ScoreboardData } from "~/store/scoreboard";
-import { computed } from "vue";
 
 const data = computed<ScoreboardData>(() => ({
   username: username.value,
@@ -30,7 +29,7 @@ const data = computed<ScoreboardData>(() => ({
 const saveStats = async () => {
   console.log("data", data.value);
   await saveScoreboard(data.value);
-  startGame();
+  death.value = 4;
 };
 </script>
 

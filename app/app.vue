@@ -11,9 +11,8 @@ import './assets/css/index.css'
 </script>
 <style>
 #breakout__main {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
+  column-count: 3;
+  padding: 15px;
 
   width: 100%;
   height: 100svh;
@@ -21,14 +20,11 @@ import './assets/css/index.css'
   background: #000000;
 
   outline: 2px solid var(--color-text);
+  place-items: center;
 }
 
 #breakout__main > :nth-child(1),
 #breakout__main > :nth-child(3) {
-  padding: 30px;
-}
-
-#breakout__main > :nth-child(2) {
-  align-self: center;
+  padding: 0 15px;
 }
 </style>

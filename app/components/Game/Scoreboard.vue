@@ -122,8 +122,13 @@ li {
   gap: 10px;
 }
 
+
 h1 {
+  border: 2px solid var(--color-secondary);
+  padding: 10px 0;
+  width: 100%;
   text-align: center;
+  text-decoration: dashed;
   margin-bottom: 20px;
 }
 pre {

@@ -27,7 +27,7 @@
       </tbody>
     </table>
     <p class="credits">
-      Created by LouisL, JulienH & GabinD
+      Created by <span class="underline">LouisL</span>, <span class="underline">JulienH</span> & <span class="underline">GabinD</span>
     </p>
   </div>
 </template>
@@ -71,6 +71,9 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.underline {
+  text-decoration: underline;
+}
 .credits {
   font-size: .8rem;
   padding-top: 20px;

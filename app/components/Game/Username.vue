@@ -1,7 +1,7 @@
 <template>
   <div class="input-wrapper">
     <small>change me</small>
-    <input id="username" type="text" v-model="username" :placeholder="username" />
+    <input required id="username" type="text" v-model="username" :placeholder="username" />
   </div>
 </template>
 
