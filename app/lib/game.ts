@@ -74,6 +74,10 @@ function gameLoop() {
         return true;
     });
 
+    if(brickParks.bricks.length === 0 && dot.y > (CANVAS.height / 2)) {
+        brickParks.init()
+    }
+
     window.requestAnimationFrame(gameLoop);
 }
 
