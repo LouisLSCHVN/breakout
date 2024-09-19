@@ -6,6 +6,7 @@ export const saveScoreboard = async (data: ScoreboardData): Promise<void> => {
         body: data
     })
     scoreboard.value.push(data)
+    await getScoreboard()
 }
 
 export const getScoreboard = async () => {

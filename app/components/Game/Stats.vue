@@ -26,6 +26,9 @@
         </tr>
       </tbody>
     </table>
+    <p class="credits">
+      Created by LouisL, JulienH & GabinD
+    </p>
   </div>
 </template>
 
@@ -68,6 +71,14 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.credits {
+  font-size: .8rem;
+  padding-top: 20px;
+}
+.primary{
+  color: var(--color-secondary);
+}
+
 table {
   border: 2px solid var(--color-secondary);
   width: 100%;
