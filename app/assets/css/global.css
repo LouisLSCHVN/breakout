@@ -10,4 +10,5 @@ body {
     background: var(--color-primary);
     font-family: "Press Start 2P", system-ui;
     color: white;
+    overflow: hidden;
 }

@@ -17,5 +17,10 @@ button {
   background: var(--color-primary);
   padding: 10px;
   cursor: help;
+  transition: 0.2s ease;
+}
+
+.active {
+  background: var(--color-secondary);
 }
 </style>
