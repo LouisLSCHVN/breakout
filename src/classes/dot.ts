@@ -21,8 +21,8 @@ export default class Dot extends Canvas {
     public y: number = CANVAS.width / 2;
     public radius: number = 5;
     public color: string = COLORS.dot;
-    public dx: number = 1.5;
-    public dy: number = 1.5;
+    public dx: number = 5;
+    public dy: number = 5;
 
     constructor(
         radius?: number,

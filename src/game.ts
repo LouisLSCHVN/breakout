@@ -20,6 +20,8 @@ const brickParks = new BricksPark()
 brickParks.draw();
 const ctx = canvas.get2dCtx();
 
+
+
 function startGame() {
    canvas.setBackground(COLORS.background);
 
@@ -32,10 +34,13 @@ function startGame() {
    brickParks.bricks = brickParks.bricks.filter((brick) => {
       if (brick.checkDotLimit(dot)) {
          Score.incrementScore()
+         brick.SpeedBall(dot)
           return false;
       }
       return true; // Conserver la brique sinon
   });
+
+  
 
    window.requestAnimationFrame(() => startGame())
 }

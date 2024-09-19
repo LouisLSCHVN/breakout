@@ -27,7 +27,9 @@ export default class Score extends Canvas {
         Score.death--;
         if (Score.death === 0) {
             Score.saveScore();
+            
         }
+        Score.updateDisplay()
         return Score.death !== 0;
     }
 
@@ -60,5 +62,10 @@ export default class Score extends Canvas {
             ctx.textBaseline = 'middle';
             ctx.fillText(Score.score.toString(), (CANVAS.width / 2), (CANVAS.height / 2));
         }
+    }
+
+    public static updateDisplay(){
+        const death = document.getElementById("death") as HTMLButtonElement;
+        death.textContent = Score.getDeath().toString();
     }
 }
