@@ -15,9 +15,15 @@
     <div v-if="sortedScoreboard.length > 0">
       <ul>
         <li v-for="item in sortedScoreboard" :key="item.createdAt">
-          <span>{{ item.username }}</span>
-          <span>{{ item.score }}</span>
-          <span>{{ formatRelativeTime(item.createdAt) }}</span>
+          <div class="username__container">
+            <span>{{ item.username }}</span>
+            <span>{{ item.score }} points</span>
+          </div>
+          <span>
+            <small>
+              {{ formatRelativeTime(item.createdAt) }}
+            </small>
+          </span>
         </li>
       </ul>
     </div>
@@ -29,7 +35,6 @@
 
 <script setup lang="ts">
 import { getScoreboard, scoreboard } from "~/store/scoreboard";
-import { onMounted, ref, computed } from "vue";
 
 // Fonction pour formater le temps écoulé
 function formatRelativeTime(timestamp: number): string {
@@ -98,9 +103,17 @@ ul {
 
 li {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
   padding: 10px;
   border-bottom: 1px solid var(--color-secondary);
+}
+
+.username__container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sorting-buttons {
@@ -113,12 +126,6 @@ h1 {
   text-align: center;
   margin-bottom: 20px;
 }
-
-span {
-  flex: 1;
-  text-align: center;
-}
-
 pre {
   display: none;
 }

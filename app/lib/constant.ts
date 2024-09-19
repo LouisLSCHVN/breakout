@@ -20,9 +20,9 @@ const BRICKS = {
 }
 
 const DOT = {
-    dx: 3,
-    dy: 3,
-    speed: [5, 7.5, 10]
+    dx: 1.5,
+    dy: 1.5,
+    speed: [3, 5, 7]
 }
 
 const KEYPRESS_SPEED: number = 5

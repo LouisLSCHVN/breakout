@@ -4,9 +4,6 @@
       Breakout
     </h1>
     <GameUsername />
-    <AppPeople />
-
-
     <client-only>
       <GameStats />
       <AppButton class="start" text="START" @click="startGame()" />
@@ -23,5 +20,9 @@ div {
   flex-direction: column;
   gap: 20px;
   justify-content: space-evenly;
+}
+h1 {
+  width: 100%;
+  text-align: center;
 }
 </style>
