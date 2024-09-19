@@ -36,7 +36,7 @@ import './assets/css/index.css'
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
   }
 }
 </style>

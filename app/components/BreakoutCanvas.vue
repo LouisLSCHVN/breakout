@@ -14,7 +14,7 @@ const calculateCanvasSize = () => {
   const maxWidth = 500
   const aspectRatio = 7 / 5 // height / width
 
-  let newWidth = Math.min(window.innerWidth * 0.9, maxWidth)
+  let newWidth = Math.min(window.innerWidth * 0.85, maxWidth)
   let newHeight = newWidth * aspectRatio
 
   canvasWidth.value = Math.round(newWidth)
@@ -47,7 +47,6 @@ const CANVAS = {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
 }
 
 canvas {

@@ -141,8 +141,17 @@ pre[v-cloak] {
 
 @media (max-width: 768px) {
   li {
+    flex-direction: column
+  }
+  .username__container{
+    gap: 10px;
     flex-direction: column;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .sorting-buttons {
+    flex-direction: column;
+    gap: 15px;
   }
 }
 </style>

@@ -77,6 +77,7 @@ onUnmounted(() => {
 .credits {
   font-size: .8rem;
   padding-top: 20px;
+  line-height: 2;
 }
 .primary{
   color: var(--color-secondary);

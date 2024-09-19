@@ -5,6 +5,10 @@
       <span class="shadow">GAME OVER</span>
     </h1>
     <p>You died with {{ score }} points</p>
+    <div class="input__container">
+      <small class="input__info">change username</small>
+      <input type="text" v-model="username" :placeholder="username" />
+    </div>
     <div class="death__buttons">
       <AppButton text="RESTART" @click="startGame()" />
       <AppButton text="SAVE" @click="saveStats()" />
@@ -34,6 +38,28 @@ const saveStats = async () => {
 </script>
 
 <style scoped>
+.input__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+input {
+  font-family: "Press Start 2P", system-ui;
+  text-align: center;
+  max-width: min-content;
+  background: white;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+  padding: 10px;
+  outline: none;
+  cursor: alias;
+}
+.input__info {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 aside {
   position: absolute;
   inset: 50% 0 0 50%;
@@ -79,6 +105,7 @@ h1 {
 }
 
 p {
+  text-align: center;
   color: white;
   font-size: 1.5rem;
 }
