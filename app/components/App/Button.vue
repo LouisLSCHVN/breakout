@@ -18,6 +18,8 @@ button {
   padding: 10px;
   cursor: help;
   transition: 0.2s ease;
+
+  white-space:nowrap;
 }
 
 .active {
