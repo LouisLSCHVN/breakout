@@ -11,7 +11,8 @@
  * - Ensuite, par défault, la balle va apparaître toujours sur le même y mais simplement changer de x (aléatoire)
  */
 // Dot.ts
-import { CANVAS, COLORS } from "../constant";
+import { CANVAS, COLORS, DOT } from "../constant";
+import Brick from "./brick";
 import Canvas from "./canvas";
 import Score from "./score";
 import { death } from "~/lib/game";
@@ -23,8 +24,8 @@ export default class Dot extends Canvas {
     public y: number = CANVAS.height / 2; // Correction: Utiliser CANVAS.height
     public radius: number = 5;
     public color: string = COLORS.dot;
-    public dx: number = 3;
-    public dy: number = 3;
+    public dx: number = DOT.dx;
+    public dy: number = DOT.dy;
 
     constructor(
         radius?: number,
@@ -84,8 +85,10 @@ export default class Dot extends Canvas {
         if (this.checkBorderDeath()) {
             this.resetPosition();
             Score.decrementDeath();
-            death.value = Score.getDeath();
-            console.log('number of deaths:', Score.getDeath());
+            this.resetSpeed()
+            Brick.resetFirstHit()
+            death.value = Score.getDeath()
+            console.log('number of death', Score.getDeath())
         }
     }
 
@@ -112,7 +115,11 @@ export default class Dot extends Canvas {
     }
 
     public checkBorderDeath(): boolean {
-        // Fait mourir le joueur si la balle touche le bas du canvas
-        return this.y >= (this._ctx.canvas.height - this.radius);
+        // faut faire 10% de height canva
+        return this.y >= (this._ctx.canvas.height * 0.99);
     }
+     public resetSpeed() {
+        this.dx = DOT.dx
+        this.dy = DOT.dy 
+     }
 }

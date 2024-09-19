@@ -19,9 +19,15 @@ const BRICKS = {
     marginRatio: .2
 }
 
+const DOT = {
+    dx: 3,
+    dy: 3,
+    speed: [5, 7.5, 10]
+}
+
 const KEYPRESS_SPEED: number = 5
 
 type Color = typeof COLORS[keyof typeof COLORS]
 
-export { COLORS, CANVAS, KEYPRESS_SPEED, BRICKS };
+export { COLORS, CANVAS, KEYPRESS_SPEED, BRICKS, DOT };
 export type { Color };

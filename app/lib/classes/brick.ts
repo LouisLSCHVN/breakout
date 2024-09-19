@@ -1,4 +1,4 @@
-import { CANVAS, COLORS } from "../constant";
+import { CANVAS, COLORS, DOT } from "../constant";
 import Canvas from "./canvas";
 import Dot from "./dot";
 
@@ -64,27 +64,33 @@ export default class Brick extends Canvas {
             switch (this.color) {
                 case 'green':
                     if (!Brick.firstGreenHit) {// Augmente la vitesse pour la première brique verte
-                        dot.dx *= 1.25;
-                        dot.dy *= 1.25;
+                        dot.dx  = DOT.speed[0]!;
+                        dot.dy = DOT.speed[0]!;
                         Brick.firstGreenHit = true;
                     }
                     break;
                 case 'orange':
                     if (!Brick.firstOrangeHit) {// Augmente la vitesse pour la première brique orange
-                        dot.dx *= 1.25;
-                        dot.dy *= 1.25;
+                        dot.dx = DOT.speed[1]!;
+                        dot.dy = DOT.speed[1]!;
                         Brick.firstOrangeHit = true;
                     }
                     break;
                 case 'red':
                     if (!Brick.firstRedHit) {// Augmente la vitesse pour la première brique rouge
-                        dot.dx *= 1.25;
-                        dot.dy *= 1.25;
+                        dot.dx = DOT.speed[2]!;
+                        dot.dy = DOT.speed[2]!;
                         Brick.firstRedHit = true;
                     }
                     break;
             }
             dot.dy = -dot.dy; // Inverser la direction de la balle
         }
+    }
+
+    public static resetFirstHit(): void {
+        Brick.firstGreenHit = false;
+        Brick.firstOrangeHit = false;
+        Brick.firstRedHit = false;
     }
 }
