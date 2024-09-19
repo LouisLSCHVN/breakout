@@ -13,6 +13,8 @@ export default class Brick extends Canvas {
     private static firstOrangeHit: boolean = false;
     private static firstRedHit: boolean = false;
 
+    // Nouveau: garde en mémoire le niveau maximum de vitesse
+    private static maxSpeedLevel: number = 0;
 
     constructor(
         x?: number,
@@ -58,32 +60,34 @@ export default class Brick extends Canvas {
         return false; // Pas de collision
     }
 
-    // Code de GABIN
     public speedBall(dot: Dot): void {
         if (this.checkDotLimit(dot)) {
             switch (this.color) {
                 case 'green':
-                    if (!Brick.firstGreenHit) {// Augmente la vitesse pour la première brique verte
+                    if (!Brick.firstGreenHit && Brick.maxSpeedLevel <= 0) {// Augmente la vitesse pour la première brique verte
                         dot.dx  = DOT.speed[0]!;
                         dot.dy = DOT.speed[0]!;
                         dot.dy = -dot.dy;
                         Brick.firstGreenHit = true;
+                        Brick.maxSpeedLevel = 1; // Met à jour le niveau max
                     }
                     break;
                 case 'orange':
-                    if (!Brick.firstOrangeHit) {// Augmente la vitesse pour la première brique orange
+                    if (!Brick.firstOrangeHit && Brick.maxSpeedLevel <= 1) {// Augmente la vitesse pour la première brique orange
                         dot.dx = DOT.speed[1]!;
                         dot.dy = DOT.speed[1]!;
                         dot.dy = -dot.dy;
                         Brick.firstOrangeHit = true;
+                        Brick.maxSpeedLevel = 2; // Met à jour le niveau max
                     }
                     break;
                 case 'red':
-                    if (!Brick.firstRedHit) {// Augmente la vitesse pour la première brique rouge
+                    if (!Brick.firstRedHit && Brick.maxSpeedLevel <= 2) {// Augmente la vitesse pour la première brique rouge
                         dot.dx = DOT.speed[2]!;
                         dot.dy = DOT.speed[2]!;
                         dot.dy = -dot.dy;
                         Brick.firstRedHit = true;
+                        Brick.maxSpeedLevel = 3; // Met à jour le niveau max
                     }
                     break;
             }
@@ -95,5 +99,6 @@ export default class Brick extends Canvas {
         Brick.firstGreenHit = false;
         Brick.firstOrangeHit = false;
         Brick.firstRedHit = false;
+        Brick.maxSpeedLevel = 0; // Réinitialise le niveau de vitesse à 0
     }
 }
