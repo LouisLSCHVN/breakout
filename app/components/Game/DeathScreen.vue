@@ -1,11 +1,14 @@
 <template>
-  <div v-if="death === 0">
+  <aside v-if="death === 0">
     <h1>
       GAME OVER
     </h1>
-    <AppButton text="RESTART" @click="startGame()" />
-    <AppButton text="SAVE" @click="saveStats()" />
-  </div>
+    <p>You died with {{score}} points</p>
+    <div class="death__buttons">
+      <AppButton text="RESTART" @click="startGame()" />
+      <AppButton text="SAVE" @click="saveStats()" />
+    </div>
+  </aside>
 </template>
 <script setup lang="ts">
 import {startGame, death, score} from "~/lib/game";
@@ -28,7 +31,7 @@ const saveStats = async () => {
 }
 </script>
 <style scoped>
-div {
+aside {
   position: absolute;
   inset: 50% 0 0 50%;
   transform: translate(-50%, -50%);
@@ -44,5 +47,12 @@ div {
   width: 100vw;
   height: 100vh;
   padding: 50px;
+}
+
+.death__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 </style>
